@@ -1,0 +1,26 @@
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+public class CPHInline
+{
+	static readonly HttpClient client = new HttpClient();
+
+	public bool Execute()
+	{		
+		var url = "https://gql.twitch.tv/gql#origin=twilight";
+		var request = new HttpRequestMessage() {
+			RequestUri = new Uri(url),
+			Method = HttpMethod.Post,
+		};
+
+		var body = "[{\"operationName\":\"SnoozeAd\",\"variables\": {\"input\": {\"targetChannelID\": \"YOUR_CHANNEL_ID\",\"snoozeDuration\": 300}},\"extensions\": {\"persistedQuery\": {\"version\": 1,\"sha256Hash\":\"YOUR_SHA256Hash\"}}}]";
+		request.Content = new StringContent(body);
+		request.Headers.Add("Authorization", "YOUR_AUTH_TOKEN");
+
+		client.SendAsync(request);
+
+		return true;
+	}
+}
+
