@@ -3,7 +3,7 @@
 ## Snooze Ads
 This action will give you ability to snooze ads on your stream via Streamer.Bot.
 
-Full video: https://www.youtube.com/watch?v=fkkFA7NuLD4
+Full video: https://youtu.be/ORb1EGwZRPA
 
 ### Import code for Streamer.Bot
 ```
