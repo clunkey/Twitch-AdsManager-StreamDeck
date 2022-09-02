@@ -1,0 +1,214 @@
+using System;
+using System.Net.Http;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using System.Text;
+
+public class CPHInline
+{
+	HttpClient client = new HttpClient();
+
+	// API docs https://dev.twitch.tv/docs/api/reference#replace-stream-tags
+	public bool Clear()
+	{
+		var url = new Uri("https://api.twitch.tv/helix/streams/tags?broadcaster_id=" + args["broadcastUserId"]);
+		var request = new HttpRequestMessage(HttpMethod.Put, url);
+
+		var data = @"{""tags"": []}";
+		var body = new StringContent(data, Encoding.UTF8, "application/json");
+
+		request.Content = body;
+		request.Headers.Add("Client-Id", CPH.TwitchClientId);
+		request.Headers.Add("Authorization", "Bearer " + CPH.TwitchOAuthToken);
+
+		var response = client.SendAsync(request).Result;
+		var content = response.Content.ReadAsStringAsync().Result;
+
+		if (!response.IsSuccessStatusCode)
+		{
+			CPH.LogDebug("TagsManager :: Can't clear tags");
+			CPH.LogDebug(response.ToString());
+			CPH.LogDebug(content.ToString());
+			return false;
+		}
+
+		CPH.LogDebug("TagsManager :: tags cleared");
+//		CPH.LogDebug(response.ToString());
+//		CPH.LogDebug(content.ToString());
+
+		return true;
+	}
+
+	// API docs https://dev.twitch.tv/docs/api/reference#get-stream-tags
+	public bool Get()
+	{
+		var url = new Uri("https://api.twitch.tv/helix/streams/tags?broadcaster_id=" + args["broadcastUserId"]);
+		var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+		request.Headers.Add("Client-Id", CPH.TwitchClientId);
+		request.Headers.Add("Authorization", "Bearer " + CPH.TwitchOAuthToken);
+
+		var response = client.SendAsync(request).Result;
+		var content = response.Content.ReadAsStringAsync().Result;
+
+		if (!response.IsSuccessStatusCode)
+		{
+			CPH.LogDebug("TagsManager :: Can't get tags");
+			CPH.LogDebug(response.ToString());
+			CPH.LogDebug(content.ToString());
+			return false;
+		}
+
+		CPH.LogDebug("TagsManager :: got tags");
+//		CPH.LogDebug(response.ToString());
+//		CPH.LogDebug(content.ToString());
+
+		var jsonContent = JObject.Parse(content.ToString());
+		JArray jsonData = jsonContent.Value<JArray>("data");
+
+		var oldTagsList = new List<string>();
+		
+		foreach(var tag in jsonData)
+		{
+			oldTagsList.Add(String.Format(@"""{0}""", tag.Value<string>("tag_id")));
+		}
+
+		var oldTags = String.Join(",", oldTagsList);
+		CPH.SetArgument("oldTags", oldTags);
+
+		return true;
+	}
+
+	// API docs https://dev.twitch.tv/docs/api/reference#replace-stream-tags
+	public bool Set()
+	{
+		var url = new Uri("https://api.twitch.tv/helix/streams/tags?broadcaster_id=" + args["broadcastUserId"]);
+		var request = new HttpRequestMessage(HttpMethod.Put, url);
+
+		var data = @"{""tag_ids"":["+args["tags"].ToString()+"]}";
+		var body = new StringContent(data, Encoding.UTF8, "application/json");
+
+		request.Content = body;
+		request.Headers.Add("Client-Id", CPH.TwitchClientId);
+		request.Headers.Add("Authorization", "Bearer " + CPH.TwitchOAuthToken);
+
+		var response = client.SendAsync(request).Result;
+		var content = response.Content.ReadAsStringAsync().Result;
+
+		if (!response.IsSuccessStatusCode)
+		{
+			CPH.LogDebug("TagsManager :: Can't set tags");
+			CPH.LogDebug(response.ToString());
+			CPH.LogDebug(content.ToString());
+			return false;
+		}
+
+		CPH.LogDebug("TagsManager :: tags set");
+//		CPH.LogDebug(response.ToString());
+//		CPH.LogDebug(content.ToString());
+
+		return true;
+	}
+
+	public bool GetFreeform()
+	{
+		var url = new Uri("https://gql.twitch.tv/gql");
+		var request = new HttpRequestMessage(HttpMethod.Post, url);
+
+		var data = @"[{""operationName"":""EditBroadcastContextFreeformTagsQuery"",""variables"":{""login"":""" + args["broadcastUserName"] + @"""},""extensions"":{""persistedQuery"":{""version"":1,""sha256Hash"":""" + args["sha256Hash"] + @"""}}}]";
+		var body = new StringContent(data, Encoding.UTF8, "application/json");
+
+		request.Content = body;
+		request.Headers.Add("Authorization", args["OAuth"].ToString());
+
+		var response = client.SendAsync(request).Result;
+		var content = response.Content.ReadAsStringAsync().Result;
+
+		if (!response.IsSuccessStatusCode)
+		{
+			CPH.LogDebug("TagsManager :: Can't get freeform tags");
+			CPH.LogWarn(response.ToString());
+			CPH.LogWarn(content.ToString());
+			return false;
+		}
+
+		CPH.LogDebug("TagsManager :: got freeform tags");
+//		CPH.LogWarn(response.ToString());
+//		CPH.LogWarn(content.ToString());
+
+		var jsonContent = JArray.Parse(content.ToString()).First;
+		JObject jsonData = jsonContent.Value<JObject>("data");
+		JObject jsonUser = jsonData.Value<JObject>("user");
+		JArray jsonFreeformTags = jsonUser.Value<JArray>("freeformTags");
+
+		var oldFreeformTagsList = new List<string>();
+		
+		foreach(var tag in jsonFreeformTags)
+		{
+			oldFreeformTagsList.Add(String.Format(@"""{0}""", tag.Value<string>("name")));
+		}
+
+		var oldFreeformTags = String.Join(",", oldFreeformTagsList);
+		CPH.SetArgument("oldFreeformTags", oldFreeformTags);
+
+		return true;
+	}
+
+	public bool SetFreeform()
+	{
+		var url = new Uri("https://gql.twitch.tv/gql");
+		var request = new HttpRequestMessage(HttpMethod.Post, url);
+
+		var data = @"[{""operationName"":""EditBroadcastContext_FreeformTagsMutation"",""variables"":{""input"":{""contentID"":"""+ args["broadcastUserId"] +@""",""contentType"":""CHANNEL"",""freeformTagNames"":["+ args["freeformTags"] + @"]}},""extensions"":{""persistedQuery"":{""version"":1,""sha256Hash"":""" + args["sha256Hash"] + @"""}}}]";
+		var body = new StringContent(data, Encoding.UTF8, "application/json");
+
+		request.Content = body;
+		request.Headers.Add("Authorization", args["OAuth"].ToString());
+
+		var response = client.SendAsync(request).Result;
+		var content = response.Content.ReadAsStringAsync().Result;
+
+		if (!response.IsSuccessStatusCode)
+		{
+			CPH.LogDebug("TagsManager :: Can't set freeform tags");
+			CPH.LogWarn(response.ToString());
+			CPH.LogWarn(content.ToString());
+			return false;
+		}
+
+		CPH.LogDebug("TagsManager :: freeform tags set");
+//		CPH.LogWarn(response.ToString());
+//		CPH.LogWarn(content.ToString());
+
+		return true;
+	}
+
+	public bool ClearFreeform()
+	{
+		var url = new Uri("https://gql.twitch.tv/gql");
+		var request = new HttpRequestMessage(HttpMethod.Post, url);
+
+		var data = @"[{""operationName"":""EditBroadcastContext_FreeformTagsMutation"",""variables"":{""input"":{""contentID"":"""+ args["broadcastUserId"] +@""",""contentType"":""CHANNEL"",""freeformTagNames"":[]}},""extensions"":{""persistedQuery"":{""version"":1,""sha256Hash"":""" + args["sha256Hash"] + @"""}}}]";
+		var body = new StringContent(data, Encoding.UTF8, "application/json");
+
+		request.Content = body;
+		request.Headers.Add("Authorization", args["OAuth"].ToString());
+
+		var response = client.SendAsync(request).Result;
+		var content = response.Content.ReadAsStringAsync().Result;
+
+		if (!response.IsSuccessStatusCode)
+		{
+			CPH.LogDebug("TagsManager :: Can't clear freeform tags");
+			CPH.LogDebug(response.ToString());
+			CPH.LogDebug(content.ToString());
+			return false;
+		}
+
+		CPH.LogDebug("TagsManager :: freeform tags cleared");
+//		CPH.LogDebug(response.ToString());
+//		CPH.LogDebug(content.ToString());
+
+		return true;
+	}
+}
