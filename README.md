@@ -1,7 +1,9 @@
 # Twitch-AdsManager-StreamDeck
 **Snooze** or **Start** Ads Manager ads with a **Stream Deck**
 
-API Ninja templates based on TheShiningOne's excellent [StreamerBot guide](https://www.youtube.com/watch?v=ORb1EGwZRPA). **All credit to TheShiningOne for discovering this method**!
+API Ninja templates based on TheShiningOne's excellent [StreamerBot guide](https://www.youtube.com/watch?v=ORb1EGwZRPA). 
+
+**All credit to TheShiningOne for discovering this method**! Original repo [here](https://github.com/TheShining1/Twitch-API).
 
 ## Important
 1. **Do not stream or share your request data**. Treat your OAuth string like a password.
