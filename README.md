@@ -63,5 +63,5 @@ You should be able to test each action now. If it doesn't work right away, troub
 TheShiningOne put out [another video](https://www.youtube.com/watch?v=eRY6V1ssGkk) showing how to set Custom Tags via similar methods, as Twitch hasn't provided any documentation for that either.
 
 ## Contributor Links
-[ShiningOne on Twitch](https://www.twitch.tv/shiningone)
-[MaclunkeyCulkin on Twitch](https://www.twitch.tv/maclunkeyculkin)
+* [ShiningOne on Twitch](https://www.twitch.tv/shiningone)
+* [MaclunkeyCulkin on Twitch](https://www.twitch.tv/maclunkeyculkin)
