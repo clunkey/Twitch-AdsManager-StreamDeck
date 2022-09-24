@@ -1,5 +1,5 @@
 # Twitch-AdsManager-StreamDeck
-SNOOZE or START Ads Manager Ads with a STREAM DECK
+**Snooze** or **Start** Ads Manager Ads with a **Stream Deck**
 
 API Ninja templates based on TheShiningOne's excellent [StreamerBot guide](https://www.youtube.com/watch?v=ORb1EGwZRPA). **All credit to TheShiningOne for discovering this method**!
 
