@@ -23,7 +23,7 @@ First, we need to copy the POST request that's made whenever we click **Snooze**
 
 5. Go live on Twitch and pause the stream if it's playing in your Creator Dashboard
 6. Once the **Snooze** and **Run Ad** buttons are clickable in the Ads Manager, follow these steps for each button:
-   * Click the button. At least one row should pop up in the **Network** tab with the Name **gql**
+   * Click the button. At least one row should pop up in the **Network** tab with the Name `gql`
    * Click each `gql` request and check its **Payload** tab until you find the one whose `operationName` equals either `SnoozeAd` or `AutoAdsFrequencySelector_StartAd`, based on which button you clicked.
    * Right-click that request, click **Copy as cURL (cmd)**, and paste the results into a Notepad
 
