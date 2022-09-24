@@ -19,12 +19,12 @@ First, we need to copy the POST request that's made whenever we click **Snooze**
 3. Open your browser's dev tools (depending on the browser: `Ctrl + Shift + J`, `Ctrl + Shift + I`, or `F12`)
 4. Open the **Network** tab
 
-   - OPTIONAL: before going live, you may want to get comfortable reading the **Network** feed. In your **Creator Dashboard**, click the **Edit Stream Info** Quick Action button, and note the new rows that populate in the **Network** tab with the name `gql`. Click one of them and navigate to its **Payload** tab. Note the request's `operationName`, and try to find the one whose `operationName` is `EditBroadcastContextQuery`. At any time, you can pause or resume the Network feed (`Ctrl + E` in Chrome) so your requests don't get buried. Once you feel comfortable locating requests, move on to the next step.
+   - OPTIONAL: before going live, you may want to get comfortable reading the **Network** feed. In your **Creator Dashboard**, click the **Edit Stream Info** Quick Action button, and note the new rows that populate in the **Network** tab with the name `gql`. Click one of them and navigate to its **Payload** tab (or **Request** in some browsers). Note the request's `operationName`, and try to find the one whose `operationName` is `EditBroadcastContextQuery`. At any time, you can pause or resume the Network feed (`Ctrl + E` in Chrome) so your requests don't get buried. Once you feel comfortable locating requests, move on to the next step.
 
 5. Go live on Twitch and pause the stream if it's playing in your Creator Dashboard
 6. Once the **Snooze** and **Run Ad** buttons are clickable in the Ads Manager, follow these steps for each button:
    * Click the button. At least one row should pop up in the **Network** tab with the Name `gql`
-   * Click each `gql` request and check its **Payload** tab until you find the one whose `operationName` equals either `SnoozeAd` or `AutoAdsFrequencySelector_StartAd`, based on which button you clicked.
+   * Click each `gql` request and check its **Payload** tab (or **Request** in some browsers) until you find the one whose `operationName` equals either `SnoozeAd` or `AutoAdsFrequencySelector_StartAd`, based on the button you clicked.
    * Right-click that request, click **Copy as cURL (cmd)**, and paste the results into a Notepad
 
 We now have everything we need to recreate those requests. Open up the Stream Deck app and download the [API Ninja plug-in](https://apps.elgato.com/plugins/com.barraider.apininja)
@@ -37,7 +37,7 @@ in **Headers**:
 * `Authorization: {YOUR_OAUTH}` <-- e.g. `OAuth abcdefghijklmnopqrstuvwxyz1234`
 
 in **Data**:
-* `"targetChannelID": "{YOUR_CHANNEL_ID}"` <-- e.g. `"1234567"`, find yours [here](https://www.streamweasels.com/tools/convert-twitch-username-to-user-id/)
+* `"targetChannelID": "{YOUR_CHANNEL_ID}"` <-- e.g. `"1234567"`
 * `"sha256Hash": "{YOUR_SHA_HASH}"` <-- e.g. `"abcdefghijklmnopqrstuvwxyz123456abcdefghijklmnopqrstuvwxyz123456"`, there will be a different hash for each button; don't copy from one to the other
 
 ## [StartAd.ninja](StartAd.ninja)
