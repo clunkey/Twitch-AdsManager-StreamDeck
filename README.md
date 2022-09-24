@@ -19,7 +19,7 @@ First, we need to copy the POST request that's made whenever we click **Snooze**
 3. Open your browser's dev tools (depending on the browser: `Ctrl + Shift + J`, `Ctrl + Shift + I`, or `F12`)
 4. Open the **Network** tab
 
-   - OPTIONAL: to get comfortable reading the **Network** feed, click the **Edit Stream Info** Quick Action button, and note the new rows that populate in the **Network** tab with the name `gql`. Click one of them and navigate to its **Payload** tab. Identify the request's `operationName`. At any time, you can pause or resume the Network feed so your requests don't get buried. The shortcut is `Ctrl + E` in Chrome.
+   - OPTIONAL: before going live, you may want to get comfortable reading the **Network** feed. In your **Creator Dashboard**, click the **Edit Stream Info** Quick Action button, and note the new rows that populate in the **Network** tab with the name `gql`. Click one of them and navigate to its **Payload** tab. Note the request's `operationName`, and try to find the one whose `operationName` is `EditBroadcastContextQuery`. At any time, you can pause or resume the Network feed (`Ctrl + E` in Chrome) so your requests don't get buried. Once you feel comfortable locating requests, move on to the next step.
 
 5. Go live on Twitch and pause the stream if it's playing in your Creator Dashboard
 6. Once the **Snooze** and **Run Ad** buttons are clickable in the Ads Manager, follow these steps for each button:
@@ -50,7 +50,7 @@ in **Headers**:
 in **Data**:
 
 * `channelID : "{YOUR_CHANNEL_ID}"` <-- e.g. `"1234567"`, note the key is `channelID`, rather than `targetChannelID` in `SnoozeAd`
-* `lengthSeconds : {YOUR_AD_LENGTH}` <-- e.g. `90`, must match your ad length set in the Ads Manager. note the lack of quotes
+* `lengthSeconds : {YOUR_AD_LENGTH}` <-- e.g. `90`, must match your ad length set in the Ads Manager. Note the lack of quotes
 * `"sha256Hash": "{YOUR_SHA_HASH}"` <-- e.g. `"abcdefghijklmnopqrstuvwxyz123456abcdefghijklmnopqrstuvwxyz123456"`, there will be a different hash for each button; don't copy from one to the other
 	
 ## Testing
@@ -60,4 +60,8 @@ You should be able to test each action now. If it doesn't work right away, troub
 3. Press the button again. Your response from Twitch will be saved to that file.
 	
 ## Bonus
-TheShiningOne put out [another video](https://www.youtube.com/watch?v=eRY6V1ssGkk) showing how to set Custom Tags via similar methods
+TheShiningOne put out [another video](https://www.youtube.com/watch?v=eRY6V1ssGkk) showing how to set Custom Tags via similar methods, as Twitch hasn't provided any documentation for that either.
+
+## Contributor Links
+[ShiningOne on Twitch](https://www.twitch.tv/shiningone)
+[MaclunkeyCulkin on Twitch](https://www.twitch.tv/maclunkeyculkin)
