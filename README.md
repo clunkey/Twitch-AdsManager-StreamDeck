@@ -30,7 +30,7 @@ First, we need to copy the POST request that's made whenever we click **Snooze**
 We now have everything we need to recreate those requests. Open up the Stream Deck app and download the [API Ninja plug-in](https://apps.elgato.com/plugins/com.barraider.apininja)
 
 ## [SnoozeAd.ninja](SnoozeAd.ninja)
-In the Stream Deck app, create a new API Ninja action. Scroll to the bottom of the action's settings and click **Import Settings** to import [SnoozeAd.ninja](SnoozeAd.ninja), then replace the bracketed placeholders with the values from your SnoozeAd `gql` request:
+In the Stream Deck app, create a new API Ninja action. Scroll to the bottom of the action's settings and click **Import Settings** to import [SnoozeAd.ninja](SnoozeAd.ninja), then replace the bracketed placeholders with the values from your `SnoozeAd` request:
 
 in **Headers**:
 
@@ -41,7 +41,7 @@ in **Data**:
 * `"sha256Hash": "{YOUR_SHA_HASH}"` <-- e.g. `"abcdefghijklmnopqrstuvwxyz123456abcdefghijklmnopqrstuvwxyz123456"`, there will be a different hash for each button; don't copy from one to the other
 
 ## [StartAd.ninja](StartAd.ninja)
-In the Stream Deck app, create a new API Ninja action. Scroll to the bottom of the action's settings and click **Import Settings** to import [StartAd.ninja](StartAd.ninja), then replace the bracketed placeholders with the values from your SnoozeAd `gql` request:
+In the Stream Deck app, create a new API Ninja action. Scroll to the bottom of the action's settings and click **Import Settings** to import [StartAd.ninja](StartAd.ninja), then replace the bracketed placeholders with the values from your `AutoAdsFrequencySelector_StartAd` request:
 
 in **Headers**:
 
