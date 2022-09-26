@@ -14,7 +14,7 @@ API Ninja templates based on TheShiningOne's excellent [StreamerBot guide](https
 
 First, we need to copy the POST request that's made whenever we click **Snooze** or **Run Ad** the Ads Manager. This is covered in the first 2 minutes of the [video](https://www.youtube.com/watch?v=ORb1EGwZRPA) above. **I recommend watching it if you aren't familiar with POST requests or browser dev tools**.
 
-1. Go to your [Creator Dashboard](https://dashboard.twitch.tv/u/maclunkeyculkin/stream-manager)
+1. Go to your [Creator Dashboard](https://dashboard.twitch.tv/)
 2. Make sure the [Ads Manager](https://help.twitch.tv/s/article/ads-manager) is on your Dashboard, and your **Ads Schedule** is enabled
 3. Open your browser's dev tools (depending on the browser: `Ctrl + Shift + J`, `Ctrl + Shift + I`, or `F12`)
 4. Open the **Network** tab
