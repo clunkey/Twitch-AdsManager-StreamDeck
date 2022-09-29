@@ -34,7 +34,7 @@ In the Stream Deck app, create a new API Ninja action. Scroll to the bottom of t
 
 in **Headers**:
 
-* `Authorization: {YOUR_OAUTH}` <-- e.g. `OAuth abcdefghijklmnopqrstuvwxyz1234`
+* `Authorization: Oauth {YOUR_OAUTH}` <-- e.g. `abcdefghijklmnopqrstuvwxyz1234`
 
 in **Data**:
 * `"targetChannelID": "{YOUR_CHANNEL_ID}"` <-- e.g. `"1234567"`
@@ -45,7 +45,7 @@ In the Stream Deck app, create a new API Ninja action. Scroll to the bottom of t
 
 in **Headers**:
 
-* `Authorization: {YOUR_OAUTH}` <-- e.g. `OAuth abcdefghijklmnopqrstuvwxyz1234`
+* `Authorization: Oauth {YOUR_OAUTH}` <-- e.g. `abcdefghijklmnopqrstuvwxyz1234`
 	
 in **Data**:
 
@@ -54,7 +54,7 @@ in **Data**:
 * `"sha256Hash": "{YOUR_SHA_HASH}"` <-- e.g. `"abcdefghijklmnopqrstuvwxyz123456abcdefghijklmnopqrstuvwxyz123456"`, there will be a different hash for each button; don't copy from one to the other
 	
 ## Testing
-You should be able to test each action now. If it doesn't work right away, troubleshoot with these steps in you API Ninja action:
+You should be able to test each action now. If it doesn't work right away, troubleshoot with these steps in your API Ninja action:
 1. Set **Response Shown** to `*`
 2. Check **Save Response Shown to file** and set a **Response Filename**
 3. Press the button again. Your response from Twitch will be saved to that file.
